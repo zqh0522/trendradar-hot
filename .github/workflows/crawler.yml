@@ -44,7 +44,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
   actions: write
 
 jobs:
@@ -177,6 +177,7 @@ jobs:
       # --------------------------------------------------------------------------------
       - name: Publish report to GitHub Pages
         if: success()
+        continue-on-error: true
         run: |
           if [ ! -f index.html ]; then
             echo "❌ 未找到 index.html，跳过发布"
