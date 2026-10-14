@@ -170,6 +170,34 @@ jobs:
         run: uv run python -m trendradar
 
       # --------------------------------------------------------------------------------
+      # 📄 PUBLISH WEB REPORT / 发布网页报告到 GitHub Pages
+      # --------------------------------------------------------------------------------
+      # GitHub Actions 每次运行都是全新环境，爬虫生成的 index.html 会随环境销毁。
+      # 此处将其提交回仓库，GitHub Pages 才能展示最新报告。
+      # --------------------------------------------------------------------------------
+      - name: Publish report to GitHub Pages
+        if: success()
+        run: |
+          if [ ! -f index.html ]; then
+            echo "❌ 未找到 index.html，跳过发布"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add index.html
+
+          if git diff --cached --quiet; then
+            echo "ℹ️ index.html 无变化，跳过提交"
+            exit 0
+          fi
+
+          git commit -m "chore: 更新热点报告 $(date -u +'%Y-%m-%d %H:%M') UTC"
+          git push origin HEAD:master
+          echo "✅ 已发布最新报告到 GitHub Pages"
+
+      # --------------------------------------------------------------------------------
       # ☁️ CLOUDFLARE PAGES DEPLOY / 部署到 Cloudflare Pages（可选）
       # --------------------------------------------------------------------------------
       # 将爬虫生成的 index.html 自动部署到 Cloudflare Pages，国内访问比 GitHub Pages 更快。
