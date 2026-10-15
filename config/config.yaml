@@ -100,6 +100,20 @@ platforms:
       name: "知乎"
       expected_domain: "zhihu.com"
 
+    # ── 娱乐向平台（补上明星艺人/影视/综艺内容）──
+    - id: "douban"
+      name: "豆瓣"
+      expected_domain: "douban.com"
+    - id: "iqiyi-hot-ranklist"
+      name: "爱奇艺热播"
+      expected_domain: "iqiyi.com"
+    - id: "qqvideo-tv-hotsearch"
+      name: "腾讯视频热播"
+      expected_domain: "v.qq.com"
+    - id: "hupu"
+      name: "虎扑"
+      expected_domain: "hupu.com"
+
 
 
 # ===============================================================
@@ -137,9 +151,18 @@ rss:
       enabled: false                  # 禁用
       # max_age_days: 3               # 示例：推送 3 天内的文章（更新较慢的博客）
      
-    - id: "yahoo-finance"
-      name: "雅虎财经"
-      url: "https://finance.yahoo.com/news/rssindex"
+    - id: "douban-movie"
+      name: "豆瓣影评"
+      url: "https://www.douban.com/feed/review/movie"
+      max_age_days: 7                 # 影评更新较慢，放宽到 7 天
+
+    - id: "ifanr"
+      name: "爱范儿"
+      url: "https://www.ifanr.com/feed"
+
+    - id: "sspai"
+      name: "少数派"
+      url: "https://sspai.com/feed"
 
     # 自定义源示例
     # - id: "custom-feed"
